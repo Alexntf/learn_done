@@ -1,0 +1,65 @@
+# dbt_project.yml
+
+name: "learn_done"
+version: "1.0.0"
+config-version: 2
+
+# Le chemin vers les dossiers qui contiennent les modèles dbt
+# (les fichiers .sql ou .yml)
+model-paths: ["models"]
+
+# Chemin des dossiers pour les analyses
+analysis-paths: ["analysis"]
+
+# Chemin des dossiers pour les tests
+test-paths: ["tests"]
+
+# Chemin des dossiers pour les macros
+macro-paths: ["macros"]
+
+# Dossier pour les fichiers de snapshots
+snapshot-paths: ["snapshots"]
+
+# Dossier où les résultats de compilation dbt sont stockés
+target-path: "target"
+
+# Dossier où les fichiers temporaires sont stockés
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+# Paramètres de profil pour les connexions de bases de données
+profile: "learn_done_profile"
+
+# Configuration des modèles dbt (par défaut)
+models:
+  # Configuration globale pour tous les modèles dans le projet
+  learn_done:
+    # Les options de configurations par défaut pour tous les modèles du projet
+    +materialized: "view"  # "table", "incremental" ou "view"
+    +schema: "analytics"   # Schéma par défaut
+    +enabled: true         # Tous les modèles sont activés par défaut
+
+    # Configuration spécifique à des sous-dossiers de modèles
+    marts:
+      +materialized: "table"  # Les modèles dans "marts" seront materialisés en tables
+    
+    analytics:
+      +materialized: "view"
+
+    staging:
+      +materialized: "view"  # Les modèles de staging sont des vues
+
+# Configuration des tests (si besoin)
+tests:
+  generic:
+    +enabled: true
+
+# Variables personnalisées (vous pouvez définir des variables ici pour les utiliser dans les modèles)
+vars:
+  brut_env: "production"  # Peut être utilisé dans des modèles SQL avec {{ var("brut_env") }}
+
+# Options de configuration supplémentaires (version de DBT, etc.)
+dispatch:
+  - macro_namespace: dbt
+    search_order: ["brut_analytics", "dbt"]
