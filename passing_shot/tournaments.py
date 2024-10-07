@@ -58,34 +58,24 @@ try:
     test_conn.close()
 except Exception as e:
     print(f"Database connection failed: {str(e)}")
-
-# Create a table for the tournaments
+    
 conn.execute('''
-    CREATE TABLE IF NOT EXISTS 
-        tournaments (
-            id STRING,
-            name TEXT,
-            importance INTEGER,
-            class_id STRING,
-            class_name TEXT
-        )
-''')
-
-# Insert or update the data in the table
-for tournament in tournaments_with_class_info:
-    conn.execute('''
-        INSERT INTO tournaments (id, name, importance, class_id, class_name) 
-        VALUES (?, ?, ?, ?, ?)
-    ''', (tournament['id'], tournament['name'], tournament['importance'], 
-          tournament['class_id'], tournament['class_name']))
-
-# Verify the inserted data
-result = conn.execute('SELECT * FROM tournaments LIMIT 5').fetchall()
-print("Data in the tournaments table:")
-for row in result:
-    print(row)  # Print each row of data
-
-# Close the connection to the database
-conn.close()
-
-
+    CREATE TABLE IF NOT EXISTS tournaments (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        importance INTEGER,
+        current_champion_team_id INTEGER,
+        current_champion_team_name TEXT,
+        current_champion_team_hash_image TEXT,
+        most_titles INTEGER,
+        ground TEXT,
+        number_of_sets INTEGER,
+        max_points INTEGER,
+        primary_color TEXT,
+        secondary_color TEXT,
+        start_league TIMESTAMP,
+        end_league TIMESTAMP,
+        hash_image TEXT,
+        class_id INTEGER,
+        class_name TEXT
+    )
