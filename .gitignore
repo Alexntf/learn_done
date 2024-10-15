@@ -40,3 +40,5 @@ profiles.yml
 
 # Ignore any local configuration files
 *.local.yml
+
+tennis.db

@@ -15,9 +15,9 @@ unnested_leagues AS (
         league_name,
         most_titles,
         0 AS element_index,
-        json_extract(teams_most_titles, '$[0].team_id')::INT AS team_id,
-        json_extract(teams_most_titles, '$[0].team_name')::VARCHAR AS team_name,
-        json_extract(teams_most_titles, '$[0].team_hash_image')::VARCHAR AS team_hash_image
+        json_extract(teams_most_titles, '$[0].team_id') AS team_id,
+        json_extract(teams_most_titles, '$[0].team_name') AS team_name,
+        json_extract(teams_most_titles, '$[0].team_hash_image') AS team_hash_image
     FROM base
     
     UNION ALL
@@ -28,9 +28,9 @@ unnested_leagues AS (
         league_name,
         most_titles,
         1 AS element_index,
-        json_extract(teams_most_titles, '$[1].team_id')::INT AS team_id,
-        json_extract(teams_most_titles, '$[1].team_name')::VARCHAR AS team_name,
-        json_extract(teams_most_titles, '$[1].team_hash_image')::VARCHAR AS team_hash_image
+        json_extract(teams_most_titles, '$[1].team_id') AS team_id,
+        json_extract(teams_most_titles, '$[1].team_name') AS team_name,
+        json_extract(teams_most_titles, '$[1].team_hash_image') AS team_hash_image
     FROM base
     WHERE json_array_length(teams_most_titles) > 1
 ),
