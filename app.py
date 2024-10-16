@@ -2,6 +2,15 @@ import streamlit as st
 import pandas as pd
 import duckdb
 
+
+# Function to load CSS
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+# Load CSS
+load_css('css/styles.css')
+
 # Configuration de la connexion DuckDB
 @st.cache_resource
 def init_connection():
@@ -28,31 +37,6 @@ def format_value(value):
 # Chargement des données
 leagues_data, most_titles_data = load_data()
 
-# Ajout du CSS personnalisé corrigé
-st.markdown("""
-<style>
-.info-container {
-    background-color: #e8eae8;
-    border-radius: 8px;
-    padding: 12px 20px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.info-label {
-    font-weight: bold;
-    font-size: 16px;
-    color: #000000;
-}
-
-.info-value {
-    font-size: 16px;
-    color: #000000;
-}
-</style>
-""", unsafe_allow_html=True)
 
 # Fonction pour afficher une information dans un rectangle gris
 def display_info(label, value):
