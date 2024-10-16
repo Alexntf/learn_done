@@ -40,9 +40,9 @@ final AS (
         league_id,
         league_name,
         team_id,
-        team_name,
+        REPLACE(team_name, '"', '') AS team_name,
         most_titles,
-        team_hash_image
+        REPLACE(team_hash_image, '"', '') AS team_hash_image
     FROM 
         unnested_leagues
     WHERE 
