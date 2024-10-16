@@ -8,3 +8,4 @@ sources:
       - name: tournaments   # Name of the source table
         description: "Table containing tournament data."
       - name: leagues
+      - name: rounds
