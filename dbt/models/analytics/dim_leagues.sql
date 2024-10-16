@@ -3,8 +3,8 @@ WITH final AS (
         DISTINCT
         league_id,
         current_champion_team_id,
-        start_league, 
-        end_league,
+        CAST(start_league AS DATE) AS start_date,
+        CAST(end_league AS DATE) AS end_date,
         EXTRACT(YEAR FROM start_league) AS year,
         league_name,
         current_champion_team_name,

@@ -1,10 +1,9 @@
 # Getting started
 ## Setup
-### DuckDB 
+**DuckDB**
 Create DB - `duckdb tennis.db`
-### dbt 
-**Init** `dbt init`
-**DB**
+**dbt**
+`dbt init`
 Edit `~ .dbt/.profile`
 ```yaml
 break:
@@ -15,8 +14,10 @@ break:
       threads: 1
   target: dev
 ```
-**Sources** 
 Add `sources` folder in dbt project (cf. break)
+**streamlit**
+
+
 
 ## Todo 
 - League EL 🏗️
