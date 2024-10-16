@@ -17,7 +17,6 @@ WITH final as (
         hash_image,
         class_id,
         class_name,
-        teams_most_titles
     FROM
         {{ source('tennis_api', 'leagues') }}
 )
