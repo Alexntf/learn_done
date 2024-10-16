@@ -56,6 +56,17 @@ def process_data(data):
             "league_name": match["league_name"],
             "league_hash_image": match["league_hash_image"]
         }
+        # Rounds
+        round_info = match.get("round", {})
+        match_info.update({
+            "round_name": round_info.get("name", {}),
+        })
+        # Status 
+        status_info = match.get("status", {})
+        match_info.update({
+            "status": status_info.get("type", None),
+            "status_reason": status_info.get("reason", None)
+        })
         # Home team dict
         home_team_score_info = match.get("home_team_score", {})
         match_info.update({
@@ -77,6 +88,15 @@ def process_data(data):
             "away_team_score_set_3": away_team_score_info.get("period_3", None),
             "away_team_score_set_4": away_team_score_info.get("period_4", None),
             "away_team_score_set_5": away_team_score_info.get("period_5", None),
+        })
+        # Times 
+        time_info = match.get("times", {})
+        match_info.update({
+            "time_set_1": time_info.get("period_1", None),
+            "time_set_2": time_info.get("period_2", None),
+            "time_set_3": time_info.get("period_3", None),
+            "time_set_4": time_info.get("period_4", None),
+            "time_set_5": time_info.get("period_5", None)
         })
         print(match_info)
         matchs.append(match_info)
