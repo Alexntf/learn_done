@@ -9,3 +9,4 @@ sources:
         description: "Table containing tournament data."
       - name: leagues
       - name: rounds
+      - name: seasons
