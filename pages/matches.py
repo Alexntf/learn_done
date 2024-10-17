@@ -7,7 +7,7 @@ from utils import convert_to_int, format_time
 # DuckDB connection configuration
 @st.cache_resource
 def init_connection():
-    return duckdb.connect('../tennis.db')
+    return duckdb.connect('tennis.db')
 
 # Load data from DuckDB
 @st.cache_data
@@ -85,7 +85,7 @@ def simple_tennis_score_table(match_data):
     df = df.loc[:, (df != '').any(axis=0)]
 
     # Load CSS
-    css_file_path = "../css/matches_score.css"
+    css_file_path = "css/matches_score.css"
     with open(css_file_path, 'r') as css_file:
         custom_css = f'<style>{css_file.read()}</style>'
 
