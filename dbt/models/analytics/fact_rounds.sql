@@ -8,7 +8,7 @@ WITH final AS (
         season_name, 
         round
     FROM 
-        {{ source("tennis_api", "rounds") }}
+        {{ ref("stg_rounds") }}
 )
 
 SELECT * FROM final
