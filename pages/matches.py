@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import duckdb
 import os
-from utils import convert_to_int
+from utils import convert_to_int, format_time
 
 # DuckDB connection configuration
 @st.cache_resource
@@ -52,13 +52,34 @@ selected_match = round_data[round_data['match_name'] == selected_match].iloc[0]
 def simple_tennis_score_table(match_data):
     # Create a DataFrame with match scores
     df = pd.DataFrame({
-        'Player': [match_data['home_team_name'], match_data['away_team_name']],
-        'Set 1': [convert_to_int(match_data['home_team_score_set_1']), convert_to_int(match_data['away_team_score_set_1'])],
-        'Set 2': [convert_to_int(match_data['home_team_score_set_2']), convert_to_int(match_data['away_team_score_set_2'])],
-        'Set 3': [convert_to_int(match_data['home_team_score_set_3']), convert_to_int(match_data['away_team_score_set_3'])],
-        'Set 4': [convert_to_int(match_data['home_team_score_set_4']), convert_to_int(match_data['away_team_score_set_4'])],
-        'Set 5': [convert_to_int(match_data['home_team_score_set_5']), convert_to_int(match_data['away_team_score_set_5'])]
+        'Player': [match_data['home_team_name'], match_data['away_team_name'], ''],
+        'Set 1': [
+            convert_to_int(match_data['home_team_score_set_1']),
+            convert_to_int(match_data['away_team_score_set_1']),
+            format_time(match_data['time_set_1_min'])
+        ],
+        'Set 2': [
+            convert_to_int(match_data['home_team_score_set_2']),
+            convert_to_int(match_data['away_team_score_set_2']),
+            format_time(match_data['time_set_2_min'])
+        ],
+        'Set 3': [
+            convert_to_int(match_data['home_team_score_set_3']),
+            convert_to_int(match_data['away_team_score_set_3']),
+            format_time(match_data['time_set_3_min'])
+        ],
+        'Set 4': [
+            convert_to_int(match_data['home_team_score_set_4']),
+            convert_to_int(match_data['away_team_score_set_4']),
+            format_time(match_data['time_set_4_min'])
+        ],
+        'Set 5': [
+            convert_to_int(match_data['home_team_score_set_5']),
+            convert_to_int(match_data['away_team_score_set_5']),
+            format_time(match_data['time_set_5_min'])
+        ]
     })
+
 
     # Remove empty columns (sets not played)
     df = df.loc[:, (df != '').any(axis=0)]
