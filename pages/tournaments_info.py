@@ -9,7 +9,7 @@ def load_css(file_name):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Load CSS
-load_css('css/styles.css')
+load_css('../css/styles.css')
 
 # Configuration de la connexion DuckDB
 @st.cache_resource
