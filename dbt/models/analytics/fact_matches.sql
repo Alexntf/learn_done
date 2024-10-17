@@ -47,10 +47,11 @@ WITH final AS (
         away_team_score_set_4,
         away_team_score_set_5,
         time_set_1,
-        time_set_2,
-        time_set_3,
-        time_set_4,
-        time_set_5,   
+        ROUND(time_set_1/60, 0) AS time_set_1_min,
+        ROUND(time_set_2/ 60, 0) AS time_set_2_min,
+        ROUND(time_set_3/ 60, 0) AS time_set_3_min,
+        ROUND(time_set_4/ 60, 0) AS time_set_4_min,
+        ROUND(time_set_5/ 60, 0) AS time_set_5_min,  
     FROM 
         {{ref("stg_matches")}}
 )
