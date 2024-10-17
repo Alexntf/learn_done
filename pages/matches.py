@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import duckdb
 import os
+from utils import convert_to_int
 
 # Configuration de la connexion DuckDB
 @st.cache_resource
@@ -51,10 +52,7 @@ selected_match = round_data[round_data['match_name'] == selected_match].iloc[0]
 
 
 def simple_tennis_score_table(match_data):
-    def convert_to_int(value):
-        if pd.isna(value) or value == '':
-            return ''
-        return int(value)
+
 
     df = pd.DataFrame({
         'Player': [match_data['home_team_name'], match_data['away_team_name']],
