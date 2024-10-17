@@ -4,12 +4,12 @@ import duckdb
 import os
 from utils import convert_to_int
 
-# Configuration de la connexion DuckDB
+# DuckDB connection configuration
 @st.cache_resource
 def init_connection():
     return duckdb.connect('../tennis.db')
 
-# Charger les données depuis DuckDB
+# Load data from DuckDB
 @st.cache_data
 def load_data():
     conn = init_connection()
@@ -36,6 +36,7 @@ with col2:
         key="round_select"
     )
 
+# Filter data based on selected season and round
 season_data = matches_data[matches_data['season_name'] == selected_season]
 round_data = season_data[season_data['round_name'] == selected_round]
 
@@ -44,16 +45,12 @@ selected_match = st.selectbox(
     options= matches_data["match_name"]
 )
 
-# You can now use selected_season and other_selection in your app
-st.write(f"Selected tournament: {selected_season}")
-st.write(f"Round: {selected_round}")
 
+# Get data for the selected match
 selected_match = round_data[round_data['match_name'] == selected_match].iloc[0]
 
-
 def simple_tennis_score_table(match_data):
-
-
+    # Create a DataFrame with match scores
     df = pd.DataFrame({
         'Player': [match_data['home_team_name'], match_data['away_team_name']],
         'Set 1': [convert_to_int(match_data['home_team_score_set_1']), convert_to_int(match_data['away_team_score_set_1'])],
@@ -63,24 +60,22 @@ def simple_tennis_score_table(match_data):
         'Set 5': [convert_to_int(match_data['home_team_score_set_5']), convert_to_int(match_data['away_team_score_set_5'])]
     })
 
-    # Supprimer les colonnes vides (sets non joués)
+    # Remove empty columns (sets not played)
     df = df.loc[:, (df != '').any(axis=0)]
 
-    # css
+    # Load CSS
     css_file_path = "../css/matches_score.css"
     with open(css_file_path, 'r') as css_file:
         custom_css = f'<style>{css_file.read()}</style>'
 
-
-    # Utiliser to_html pour générer le tableau HTML sans index
+    # Generate HTML table without index
     table_html = df.to_html(index=False)
 
     full_html = custom_css + table_html
     
-    # Afficher le tableau HTML dans Streamlit
+    # Display the HTML table in Streamlit
     st.write(full_html, unsafe_allow_html=True)
 
-# Le reste du code reste inchangé
-
-# Afficher le tableau de score pour le match sélectionné
+st.header("Match score")
+# Display the score table for the selected match
 simple_tennis_score_table(selected_match)
