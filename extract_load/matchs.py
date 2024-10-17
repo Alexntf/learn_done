@@ -210,8 +210,8 @@ def main():
         )
     ''')
 
-    # Get all round_ids from the rounds table
-    all_round_ids = set(id for (id,) in conn.execute('SELECT DISTINCT id FROM rounds').fetchall())
+    # Get all round_ids from the rounds table only for RG 2023 for now
+    all_round_ids = set(id for (id,) in conn.execute("SELECT DISTINCT id FROM rounds WHERE season_id = '11893'").fetchall())
 
     # Get round_ids that already have matches in the matches table
     existing_round_ids = set(id for (id,) in conn.execute('SELECT DISTINCT round_id FROM matches').fetchall())
