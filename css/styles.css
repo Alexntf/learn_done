@@ -1,0 +1,20 @@
+.info-container {
+    background-color: #e8eae8;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #000000;
+}
+
+.info-value {
+    font-size: 16px;
+    color: #000000;
+}
