@@ -2,10 +2,12 @@ version: 2
 
 sources:
   - name: tennis_api  # Name of your source
-    database: ""      # Leave blank for DuckDB
-    schema: "main"    # Default schema for DuckDB
+    database: 'tennis'
+    schema: 'main'
     tables:
       - name: tournaments   # Name of the source table
         description: "Table containing tournament data."
       - name: leagues
       - name: rounds
+      - name: seasons
+      - name: matches
