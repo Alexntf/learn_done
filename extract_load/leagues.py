@@ -9,12 +9,12 @@ import json  # Import json for handling JSON data
 api_token = os.getenv('API_TOKEN')  # Get the API token from env var
 
 class_id = "425" # ATP
-start_league = "2024-01-01"
+start_league = "2023-01-01"
 
 
 
 # URL 
-url = f"https://tennis.sportdevs.com/leagues?class_id=eq.{415}&start_league=gte.{start_league}"
+url = f"https://tennis.sportdevs.com/leagues?class_id=eq.{class_id}&start_league=gte.{start_league}"
 headers = {
     "Authorization": f"Bearer {api_token}",  
     "Content-Type": "application/json"  

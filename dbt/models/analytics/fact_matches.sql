@@ -9,6 +9,8 @@ WITH final AS (
         away_team_id,
         class_id,
         league_id,
+        start_time,
+        strftime('%d-%m-%Y', start_time) AS match_date,
         match_name,
         first_to_serve,
         ground_type,
@@ -23,7 +25,7 @@ WITH final AS (
         away_team_name,
         away_team_hash_image,
         specific_start_time,
-        start_time,
+        
         duration,
         class_name,
         class_hash_image,

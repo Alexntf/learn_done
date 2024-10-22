@@ -27,35 +27,35 @@ def process_data(data):
         matches = []
         for match in data:
             match_info = {
-                "id": match["id"],
-                "tournament_id": match["tournament_id"],
-                "season_id": match["season_id"],
-                "round_id": match["round_id"],
-                "arena_id": match["arena_id"],
-                "home_team_id": match["home_team_id"],
-                "away_team_id": match["away_team_id"],
-                "class_id": match["class_id"],
-                "league_id": match["league_id"],
-                "name": match["name"],
-                "first_to_serve": match["first_to_serve"],
-                "ground_type": match["ground_type"],
-                "tournament_name": match["tournament_name"],
-                "tournament_importance": match["tournament_importance"],
-                "season_name": match["season_name"],
-                "status_type": match["status_type"],
-                "arena_name": match["arena_name"],
-                "arena_hash_image": match["arena_hash_image"],
-                "home_team_name": match["home_team_name"],
-                "home_team_hash_image": match["home_team_hash_image"],
-                "away_team_name": match["away_team_name"],
-                "away_team_hash_image": match["away_team_hash_image"],
-                "specific_start_time": match["specific_start_time"],
-                "start_time": match["start_time"],
-                "duration": match["duration"],
-                "class_name": match["class_name"],
-                "class_hash_image": match["class_hash_image"],
-                "league_name": match["league_name"],
-                "league_hash_image": match["league_hash_image"]
+                "id": match.get("id"),
+                "tournament_id": match.get("tournament_id", None),
+                "season_id": match.get("season_id", None),
+                "round_id": match.get("round_id", None),
+                "arena_id": match.get("arena_id", None),
+                "home_team_id": match.get("home_team_id", None),
+                "away_team_id": match.get("away_team_id", None),
+                "class_id": match.get("class_id", None),
+                "league_id": match.get("league_id", None),
+                "name": match.get("name", None),
+                "first_to_serve": match.get("first_to_serve", None),
+                "ground_type": match.get("ground_type", None),
+                "tournament_name": match.get("tournament_name", None),
+                "tournament_importance": match.get("tournament_importance", None),
+                "season_name": match.get("season_name", None),
+                "status_type": match.get("status_type", None),
+                "arena_name": match.get("arena_name", None),
+                "arena_hash_image": match.get("arena_hash_image", None),
+                "home_team_name": match.get("home_team_name", None),
+                "home_team_hash_image": match.get("home_team_hash_image", None),
+                "away_team_name": match.get("away_team_name", None),
+                "away_team_hash_image": match.get("away_team_hash_image", None),
+                "specific_start_time": match.get("specific_start_time", None),
+                "start_time": match.get("start_time", None),
+                "duration": match.get("duration", None),
+                "class_name": match.get("class_name", None),
+                "class_hash_image": match.get("class_hash_image", None),
+                "league_name": match.get("league_name", None),
+                "league_hash_image": match.get("league_hash_image", None)
             }
             # Rounds
             round_info = match.get("round", {})
@@ -213,7 +213,7 @@ def main():
     ''')
 
     # Get all round_ids from the rounds table only for RG 2023 for now
-    all_round_ids = set(id for (id,) in conn.execute("SELECT DISTINCT id FROM rounds WHERE season_id = '11893'").fetchall())
+    all_round_ids = set(id for (id,) in conn.execute("SELECT DISTINCT id FROM rounds").fetchall())
 
     # Get round_ids that already have matches in the matches table
     existing_round_ids = set(id for (id,) in conn.execute('SELECT DISTINCT round_id FROM matches').fetchall())

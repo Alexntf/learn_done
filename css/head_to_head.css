@@ -1,0 +1,33 @@
+.h2h-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.player-name {
+    flex: 1;
+    text-align: center;
+}
+.score-display {
+    padding: 0 20px;
+    font-size: 24px;
+}
+.winner-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+.loser-name {
+    font-size: 18px;
+}
+.match-history {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}

@@ -26,17 +26,17 @@ def process_data(data):
     rounds = []
     for season in data:
         season_info = {
-            "season_id": season["season_id"],
-            "season_name": season["season_name"],
+            "season_id": season.get("season_id"),
+            "season_name": season.get("season_name", None),
         }
-        for round in season["rounds"]:
+        for round in season.get("rounds", []):
             round_info = season_info.copy()
             round_info.update({
-                "id": round["id"],
-                "name": round["name"],
-                "round": round["round"],
-                "end_time": round["end_time"],
-                "start_time": round["start_time"],
+                "id": round.get("id"),
+                "name": round.get("name", None),
+                "round": round.get("round", None),
+                "end_time": round.get("end_time", None),
+                "start_time": round.get("start_time", None),
             })
             rounds.append(round_info)
     return rounds
@@ -69,7 +69,7 @@ def main():
     ''')
 
     # Get all season_ids from the seasons table
-    all_season_ids = set(id for (id,) in conn.execute('SELECT DISTINCT id FROM seasons').fetchall())
+    all_season_ids = set(id for (id,) in conn.execute("SELECT DISTINCT id FROM seasons").fetchall())
 
     # Get season_ids that already have rounds
     existing_season_ids = set(id for (id,) in conn.execute('SELECT DISTINCT season_id FROM rounds').fetchall())
