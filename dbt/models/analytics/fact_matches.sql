@@ -11,6 +11,7 @@ WITH final AS (
         league_id,
         start_time,
         strftime('%d-%m-%Y', start_time) AS match_date,
+        STRFTIME('%Y', start_time) AS match_year,
         match_name,
         first_to_serve,
         ground_type,
