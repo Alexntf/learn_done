@@ -20,28 +20,37 @@ def load_data():
 
 matches_data = load_data()
 
-# Create two columns with different widths
-col1, col2 = st.columns([2, 1])  
+# Create three columns with different widths
+col1, col2, col3 = st.columns([2, 2, 1])  
 
 with col1:
-    selected_season = st.selectbox(
+    selected_tournament = st.selectbox(
         "Choose a tournament",
-        options=matches_data['season_name'].unique(),
+        options=matches_data['tournament_name'].unique(),
         key="tournament_select"
     )
 
-# Filter rounds based on selected season
-season_data = matches_data[matches_data['season_name'] == selected_season]
+# Filter seasons based on selected tournament
+tournament_data = matches_data[matches_data['tournament_name'] == selected_tournament]
 
 with col2:
+    selected_season = st.selectbox(
+        "Season",
+        options=tournament_data['match_year'].unique(),
+        key="season_select"
+    )
+
+# Filter rounds based on selected tournament and season
+season_data = tournament_data[tournament_data['match_year'] == selected_season]
+
+with col3:
     selected_round = st.selectbox(
         "Round",
         options=season_data['round_name'].unique(),
         key="round_select"
     )
 
-# Filter data based on selected season and round
-season_data = matches_data[matches_data['season_name'] == selected_season]
+# Filter data based on selected tournament, season and round
 round_data = season_data[season_data['round_name'] == selected_round]
 
 selected_match = st.selectbox(
