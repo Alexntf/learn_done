@@ -79,7 +79,7 @@ def insert_data(conn, leagues):
         print("No leagues to insert")
 
 def main():
-    class_id = "425"  # ATP
+    class_id = "415"  # ATP
     start_league = "2023-01-01"
     
     conn = duckdb.connect(database='/Users/alexnataf/learn_done/tennis.db')
