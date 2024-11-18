@@ -194,10 +194,6 @@ def display_match_statistics_modern(match_id):
 
     df = conn.execute(query, [match_id]).fetchdf()
     
-    if df.empty:
-        st.warning("No statistics available for this match")
-        return
-    
     st.markdown("""
     <style>
     .stat-container {
@@ -252,9 +248,7 @@ def display_match_statistics_modern(match_id):
             """
             st.markdown(html, unsafe_allow_html=True)
 
-# Utilisation :
 
-st.text("selected MATCH   " + selected_match["match_id"])
 display_match_statistics_modern(selected_match["match_id"])
 st.header("Match score")
 # Display the score table for the selected match
