@@ -16,10 +16,3 @@ break:
 ```
 Add `sources` folder in dbt project (cf. break)
 **streamlit**
-
-
-
-## Todo 
-- League EL 🏗️
-- Season EL 
-- Matchs EL
