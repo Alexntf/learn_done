@@ -253,9 +253,9 @@ def display_match_statistics_modern(match_id):
             st.markdown(html, unsafe_allow_html=True)
 
 # Utilisation :
-match_id = "5676"
+
 st.text("selected MATCH   " + selected_match["match_id"])
-display_match_statistics_modern(match_id)
+display_match_statistics_modern(selected_match["match_id"])
 st.header("Match score")
 # Display the score table for the selected match
 simple_tennis_score_table(selected_match)
