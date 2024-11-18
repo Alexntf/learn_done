@@ -181,6 +181,75 @@ def display_head_to_head(match_data, matches_data):
         """
         st.markdown(match_html, unsafe_allow_html=True)
 
+# Modifier la fonction display_match_statistics_modern pour utiliser home_team_name et away_team_name
+def display_match_statistics_modern(match_id):
+    query = """
+        SELECT 
+            ms.*
+        FROM fact_match_statistics ms
+        WHERE ms.match_id = ?
+        AND ms.period = 'ALL'
+    """
+    conn = init_connection()
+
+    df = conn.execute(query, [match_id]).fetchdf()
+    
+    st.markdown("""
+    <style>
+    .stat-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        margin: 5px 0;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+    .stat-value {
+        font-size: 16px;
+        font-weight: bold;
+        flex: 1;
+        text-align: center;
+    }
+    .stat-name {
+        flex: 1;
+        text-align: center;
+        color: #666;
+    }
+    .winning-stat {
+        color: #28a745;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Grouper par catégorie
+    for category in df['category'].unique():
+        st.subheader(category)
+        category_stats = df[df['category'] == category]
+        
+        for _, row in category_stats.iterrows():
+            # Déterminer la meilleure stat
+            try:
+                # Extraire les valeurs numériques si possible
+                home_val = float(row['home_team'].split()[0].replace('%', ''))
+                away_val = float(row['away_team'].split()[0].replace('%', ''))
+                home_class = "winning-stat" if home_val > away_val else ""
+                away_class = "winning-stat" if away_val > home_val else ""
+            except:
+                home_class = ""
+                away_class = ""
+            
+            html = f"""
+            <div class="stat-container">
+                <div class="stat-value {home_class}">{row['home_team']}</div>
+                <div class="stat-name">{row['type']}</div>
+                <div class="stat-value {away_class}">{row['away_team']}</div>
+            </div>
+            """
+            st.markdown(html, unsafe_allow_html=True)
+
+
+display_match_statistics_modern(selected_match["match_id"])
 st.header("Match score")
 # Display the score table for the selected match
 simple_tennis_score_table(selected_match)
